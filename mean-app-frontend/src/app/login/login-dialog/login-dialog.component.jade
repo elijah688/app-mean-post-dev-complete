@@ -1,9 +1,0 @@
-//output: login-dialog.component.html
-
-h1(mat-dialog-title='').dialog-title Success!
-div(mat-dialog-content='').dialog-content
-  img.dialog-content__image(src='/assets/umaru_happy.gif', alt="umaru_happy")
-
-  p.dialog-content__message  {{data.umaruLine}}
-div(mat-dialog-actions='', align='center')
-  button(mat-flat-button='', [mat-dialog-close]='data.email', cdkfocusinitial='',  color="primary",) Roger Dat
