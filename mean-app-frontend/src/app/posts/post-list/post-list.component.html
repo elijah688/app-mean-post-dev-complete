@@ -1,0 +1,31 @@
+
+<div class="post-list-design__container">
+  <div class="post-list__container">
+    <app-spinner *ngIf="loading===true"></app-spinner>
+    <h1 *ngIf="posts.length===0 &amp;&amp; loading===false">No posts yet</h1>
+    <mat-accordion *ngIf="loading===false &amp;&amp; posts.length&gt;0">
+      <mat-expansion-panel *ngFor="let post of posts, let i = index" hideToggle="">
+        <mat-expansion-panel-header [ngStyle]="{'background-color': colors[i]}">
+          <mat-panel-title>{{post.title}} </mat-panel-title>
+          <mat-icon>add_circle_outline</mat-icon>
+        </mat-expansion-panel-header>
+        <div class="expansion-panel__content">
+          <div class="expansion-pannel__image"><img [src]="post.imagePath" [alt]="post.title"/></div>
+          <div class="expansion-pannel__description">
+            <p>{{post.content}}</p>
+          </div>
+        </div>
+        <mat-action-row>
+          <button *ngIf="post.creator===userId" mat-button="mat-button" color="accent" (click)="editPost(post)">Edit</button>
+          <button *ngIf="post.creator===userId" mat-button="mat-button" color="warn" (click)="removePost(post.id)">Delete</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="post-list__paginator">
+    <mat-paginator *ngIf="posts.length&gt;0" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+  <div class="post-design__container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

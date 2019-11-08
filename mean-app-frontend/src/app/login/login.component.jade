@@ -1,0 +1,54 @@
+//output: login.component.html
+
+  mat-card.login-form__card
+    mat-card-header.login-form__header
+      mat-card-title.login-form__title {{login===true? 'Login' : 'Sign Up'}}
+    mat-card-content.login-form__content
+      form.login-form__form([formGroup]="authForm", (ngSubmit)="authenticate()", #form="ngForm")
+        mat-form-field(appearance='outline')
+          mat-label Username
+          input(
+            formControlName='username', 
+            matInput='', 
+            placeholder='Enter your username',
+            [errorStateMatcher]='matcher')
+          mat-icon(matSuffix='') account_circle
+          mat-hint(*ngIf='login===true') The email you registered with.
+          mat-error(*ngIf="authForm.get('username').hasError('email') && !authForm.get('username').hasError('required')")
+            | Please enter a valid email address
+          mat-error(*ngIf="authForm.get('username').hasError('required')")
+            | Email is 
+            strong required
+          mat-error(*ngIf="authForm.get('username').hasError('minlength') && !authForm.get('username').hasError('email')")
+            | You need at least
+            | {{ this.authForm.get('username').errors.minlength.requiredLength - this.authForm.get('username').errors.minlength.actualLength }}
+            | more characters.
+          mat-error(*ngIf="authForm.get('username').hasError('emailTaken')")
+            | This Email is taken.
+        
+          
+        mat-form-field(appearance='outline')
+          mat-label Password
+          input(formControlName='password', 
+                matInput='', 
+                placeholder='Enter your password', 
+                [type]="hide ? 'password' : 'text'",
+                [errorStateMatcher]='matcher')
+          mat-error(*ngIf="authForm.get('password').hasError('email') && !authForm.get('username').hasError('required')")
+            | Please enter a valid email address
+          mat-error(*ngIf="authForm.get('password').hasError('required')")
+            | Password is 
+            strong required
+          mat-error(*ngIf="authForm.get('password').hasError('minlength')")
+            | You need at least
+            | {{ this.authForm.get('password').errors.minlength.requiredLength - this.authForm.get('password').errors.minlength.actualLength }}
+            | more characters.
+        
+          button(mat-icon-button='', matSuffix='', (click)='hide = !hide', [attr.aria-label]="'Hide password'", [attr.aria-pressed]='hide')
+            mat-icon {{hide ? 'visibility_off' : 'visibility'}}
+
+        mat-card-actions.login-form__actions
+          button(type="submit", mat-flat-button='', color="primary") {{ login === true ? 'LOGIN': 'SIGN UP' }}
+          p {{ login === true ? 'Don\'t have an account? ' : 'Have an account? ' }} 
+            span 
+              button(type='button', mat-button='', color='primary', (click)="login = !login; showLogin()") {{ login === true ? 'Sign up': 'Login' }}

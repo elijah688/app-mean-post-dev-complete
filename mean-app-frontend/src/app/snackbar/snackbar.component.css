@@ -1,0 +1,41 @@
+span.snack-bar__body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+span.snack-bar__body .snack-bar__umaru {
+  display: flex;
+  width: 55%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+span.snack-bar__body .snack-bar__umaru .snack-bar__umaru--img {
+  max-width: 4rem;
+  height: 4rem;
+}
+
+span.snack-bar__body .snack-bar__umaru .snack-bar__umaru--img img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+span.snack-bar__body .snack-bar__umaru .snack-bar__umaru--line {
+  word-wrap: break-word;
+  width: 60%;
+  text-align: center;
+}
+
+span.snack-bar__body .snack-bar__button {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+span.snack-bar__body .snack-bar__button button {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
