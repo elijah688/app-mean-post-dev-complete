@@ -1,0 +1,10 @@
+//output: snackbar.component.html
+
+span.snack-bar__body
+  .snack-bar__umaru
+    .snack-bar__umaru--img
+      img(src='/assets/umaru_happy2.gif', alt='umaru')
+    h3.snack-bar__umaru--line Welcome, Onii-chan!
+  .snack-bar__button
+    button(mat-stroked-button='', color='accent', (click)='closeSnackBar()') Cool
+    

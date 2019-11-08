@@ -1,0 +1,57 @@
+//output: post-create.component.html
+
+.post-create--container
+  .post-create__data-control--container
+    .post-create__data--container
+      form.post-create__data--form([formGroup]='createPostForm', #myForm="ngForm", (ngSubmit)="editing===true ? editPost() : addPost()")
+        mat-form-field
+          input(
+            matInput='', 
+            formControlName="title",
+            type="text", 
+            placeholder='What are you about...',
+            [errorStateMatcher]='matcher'
+            )
+          mat-error(*ngIf="createPostForm.get('title').hasError('required')")
+            | Content is 
+            strong required
+          mat-error(*ngIf="createPostForm.get('title').hasError('minlength')")
+            | You need at least
+            | {{ this.createPostForm.get('title').errors.minlength.requiredLength - this.createPostForm.get('title').errors.minlength.actualLength }}
+            | more characters.
+          
+        mat-form-field
+          textarea(
+            matInput='', 
+            formControlName='content', 
+            placeholder ="Details....",
+            [errorStateMatcher]='matcher'
+          )
+          mat-error(*ngIf="createPostForm.get('content').hasError('required')")
+            | Content is 
+            strong required
+          mat-error(*ngIf="createPostForm.get('content').hasError('minlength')")
+            | You need at least
+            | {{ this.createPostForm.get('content').errors.minlength.requiredLength - this.createPostForm.get('content').errors.minlength.actualLength }}
+            | more characters.
+        button(#b='', type="submit", style="display:none;")
+      .post-create__data--image        
+        .post-create__data-image--previw(*ngIf='createPostForm.get("image").valid')
+          img([src]='src', [alt]='createPostForm.value.title')
+    
+        .post-create__data-image--upload-button
+          input(type='file', 
+            #filePicker='', 
+            (change)='imageSelected($event)'
+            )
+          button(mat-stroked-button='',type='button', (click)='filePicker.click(); imageButtonClicked = true;') Image...
+          mat-error(*ngIf="createPostForm.get('image').hasError('required') && imageButtonClicked===true || (myForm.submitted===true)" )
+            | Image is 
+            strong required
+    .post-create__control--container        
+      div(*ngIf="editing===true")
+        button(mat-fab='', color="accent",type="submit", name="button", (click)="b.click()") 
+          mat-icon edit
+      div(*ngIf="editing===false")
+        button(mat-fab='', color="accent", type="submit", name="button",(click)="b.click()") 
+          mat-icon post_add
